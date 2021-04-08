@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Open Sans', sans-serif;
+  background: whitesmoke;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 35px;
+    letter-spacing: 3px;
+}
+
+/* Loader */
+.loader {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+/* img element inside the loader div */
+.loader img {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* The transform CSS property lets you rotate, scale, skew, or translate an element. 
+  It modifies the coordinate space of the CSS visual formatting model. 
+  https://developer.mozilla.org/en-US/docs/Web/CSS/transform 
+  保证了屏幕被拖拽变形之后仍然能够根据当前页面大小进行匹配 找到中间位置
+  */
+  transform: translate(-50%, -50%); 
+}
+
+/* Image Container */
+.image-container {
+  margin: 10px 30%;
+}
+
+.image-container img {
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* Media Query: Large Smartphone */
+@media screen and (max-width: 600px) {
+  h1 {
+    font-size: 28px;
+  }
+
+  .image-container {
+    margin: 10px;
+  }
+}

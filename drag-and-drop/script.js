@@ -42,7 +42,7 @@ function getSavedColumns() {
 // Set localStorage Arrays
 function updateSavedColumns() {
   listArrays = [backlogListArray, progressListArray, completeListArray, onHoldListArray];
-  const arrayNames = ['backlog', 'progess', 'complete', 'onHold']
+  const arrayNames = ['backlog', 'progress', 'complete', 'onHold']
   arrayNames.forEach((arrayName, index) => {
     localStorage.setItem(`${arrayName}Items`, JSON.stringify(listArrays[index]));
   });
@@ -78,22 +78,45 @@ function updateDOM() {
   // Progress Column
   progressList.textContent = '';
   progressListArray.forEach((progressItem, index) => {
-    createItemEl(progressList, 1, progressItem, index);
+    createItemEl(progressList, 0, progressItem, index);
   });
 
   // Complete Column
   
   completeList.textContent = '';
   completeListArray.forEach((completeItem, index) => {
-    createItemEl(completeList, 2, completeItem, index);
+    createItemEl(completeList, 0, completeItem, index);
   });
   // On Hold Column
   onHoldList.textContent = '';
   onHoldListArray.forEach((onHoldItem, index) => {
-    createItemEl(onHoldList, 3, onHoldItem, index);
+    createItemEl(onHoldList, 0, onHoldItem, index);
   });
 
   // Run getSavedColumns only once, Update Local Storage
+  updatedOnLoad = true;
+  updateSavedColumns();
+}
+
+// Allows arrays to reflect Drag and Drop items
+function rebuildArrays() {
+  backlogListArray = [];
+  for (let i = 0; i < backlogList.children.length; i++) {
+    backlogListArray.push(backlogList.children[i]);
+  }
+  progressListArray = [];
+  for (let i = 0; i < progressList.children.length; i++) {
+    progressListArray.push(progressList.children[i]);
+  }
+  completeListArray = [];
+  for (let i = 0; i < completeList.children.length; i++) {
+    completeListArray.push(completeList.children[i]);
+  }
+  onHoldListArray = []
+  for (let i = 0; i < onHoldList.children.length; i++) {
+    onHoldListArray.push(onHoldList.children[i]);
+  }
+  updateDOM();
 }
 
 // When Item Starts Dragging
@@ -122,6 +145,7 @@ function drop(e) {
   // Add Item to Column
   const parent = listColumns[currentColumn];
   parent.appendChild(draggedItem);
+  rebuildArrays();
 }
 
 // On Load
